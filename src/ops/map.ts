@@ -10,4 +10,4 @@ for (const op in OPS) {
   map[code] = op;
 }
 
-export default map;
+export { map };

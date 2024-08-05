@@ -69,7 +69,7 @@ function decode(buffer: Uint8Array, offset: number): DecodeResult | null {
     if (offset + 5 > buffer.length) return null;
     if (opcode !== OPS.OP_PUSHDATA4) throw new Error("Unexpected opcode");
 
-    number = uint8arraytools.readUInt16(buffer, offset + 1, "LE");
+    number = uint8arraytools.readUInt32(buffer, offset + 1, "LE");
     size = 5;
   }
 

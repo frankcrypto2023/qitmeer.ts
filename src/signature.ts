@@ -1,4 +1,4 @@
-const bip66 = require("bip66");
+import * as bip66 from "bip66";
 import typecheck from "./typecheck";
 import types from "./types";
 import * as uint8arraytools from "uint8array-tools";
@@ -57,7 +57,10 @@ function encode(signature: Uint8Array, hashType: number): Uint8Array {
   const r = toDER(signature.slice(0, 32));
   const s = toDER(signature.slice(32, 64));
 
-  return uint8arraytools.concat([bip66.encode(r, s), hashTypeBuffer]);
+  return uint8arraytools.concat([
+    bip66.encode(Buffer.from(r), Buffer.from(s)),
+    hashTypeBuffer,
+  ]);
 }
 
 export { decode, encode };

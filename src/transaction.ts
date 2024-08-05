@@ -17,7 +17,7 @@ interface VinObj {
 }
 
 interface VoutObj {
-  coinId: number;
+  coinId: any;
   amount: bigint;
   script: Uint8Array;
 }
@@ -67,7 +67,7 @@ export default class Transaction {
     }
 
     function readUInt32(): number {
-      const i = uint8arraytools.readUInt16(buffer, offset, "LE");
+      const i = uint8arraytools.readUInt32(buffer, offset, "LE");
       offset += 4;
       return i;
     }
@@ -118,7 +118,7 @@ export default class Transaction {
       for (let i = 0; i < voutLen; ++i) {
         const conId = readUInt16();
         tx.vout.push({
-          coinId: conId,
+          coinId: types.CoinId(conId),
           amount: readUInt64(),
           script: readVarSlice(),
         });
@@ -203,25 +203,24 @@ export default class Transaction {
     let offset = initialOffset || 0;
 
     function writeSlice(slice: Uint8Array): void {
+      // offset += Buffer.from(slice).copy(Buffer.from(buffer as Uint8Array));
       buffer!.set(slice, offset);
       offset += slice.length;
     }
 
     function writeUInt16(i: number): void {
       uint8arraytools.writeUInt16(buffer as Uint8Array, offset, i, "LE");
-      offset = buffer!.length;
+      offset += 2;
     }
 
     function writeUInt32(i: number): void {
-      // offset = (buffer as Uint8Array).writeUInt32LE(i, offset);
       uint8arraytools.writeUInt32(buffer as Uint8Array, offset, i, "LE");
-      offset = buffer!.length;
+      offset += 4;
     }
 
     function writeInt32(i: number): void {
-      // offset = (buffer as Uint8Array).writeInt32LE(i, offset);
       uint8arraytools.writeUInt32(buffer as Uint8Array, offset, i, "LE");
-      offset = buffer!.length;
+      offset += 4;
     }
 
     function writeUInt64(i: bigint): void {
@@ -229,7 +228,9 @@ export default class Transaction {
     }
 
     function writeVarInt(i: number): void {
-      varuint.encode(i, Buffer.from(buffer as Uint8Array), offset);
+      const buf = Buffer.from(buffer as Uint8Array);
+      varuint.encode(i, buf, offset);
+      buffer?.set(buf.subarray(offset, offset + varuint.encode.bytes), offset);
       offset += varuint.encode.bytes;
     }
 
@@ -281,6 +282,7 @@ export default class Transaction {
           writeVarSlice(input.script);
       });
     }
+
     // avoid slicing unless necessary
     if (initialOffset !== undefined)
       return (buffer as Uint8Array).slice(initialOffset, offset);
@@ -335,9 +337,13 @@ export default class Transaction {
     return size - 1;
   }
 
-  addOutput(scriptPubKey: Uint8Array, amount: bigint, coinId = 0): number {
+  addOutput(
+    scriptPubKey: Uint8Array,
+    amount: bigint,
+    coinId: number = 0
+  ): number {
     typecheck(types.Uint8Array, scriptPubKey);
-    typecheck(types.Amount, amount);
+    typecheck(types.Amount, Number(amount));
 
     // Add the output and return the output's index
     return (
@@ -553,7 +559,7 @@ export default class Transaction {
       offset: number
     ): number {
       uint8arraytools.writeUInt16(buffer, offset, i, "LE");
-      return buffer.length;
+      return offset + 2;
     }
 
     function writeUInt32(
@@ -562,7 +568,7 @@ export default class Transaction {
       offset: number
     ): number {
       uint8arraytools.writeUInt32(buffer, offset, i, "LE");
-      return buffer.length;
+      return offset + 4;
     }
 
     function writeUInt64(
@@ -579,8 +585,10 @@ export default class Transaction {
       i: number,
       offset: number
     ): number {
-      varuint.encode(i, Buffer.from(buffer), offset);
+      const buf = Buffer.from(buffer);
+      varuint.encode(i, buf, offset);
       const o = varuint.encode.bytes;
+      buffer.set(buf.subarray(offset, offset + o), offset);
       return offset + o;
     }
 
