@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-const varuint = require("varuint-bitcoin");
+import * as varuint from "varuint-bitcoin";
 import Transaction from "./transaction";
 import * as hash from "./hash";
 const fastMerkleRoot = require("merkle-lib/fastRoot");
