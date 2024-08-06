@@ -1,7 +1,7 @@
 {
-  "name": "qitmeer-ts",
-  "version": "1.0.9",
-  "description": "Qirmeer client-side JavaScript library",
+  "name": "qitmeerts",
+  "version": "1.1.0",
+  "description": "Qirmeer client-side TypeScript library",
   "main": "./src/index.ts",
   "scripts": {
     "test": " npm run unit",

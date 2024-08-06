@@ -1,12 +1,12 @@
-# qitmeer.js
-The qitmeer JavaScript API &amp; library
+# qitmeer.ts
 
+The qitmeer TypeScript API &amp; library
 
 ## install
 
 ```bash
-git clone https://github.com/Qitmeer/qitmeer.js.git qitmeerJs
-cd qitmeerJs && npm i
+git clone https://github.com/Qitmeer/qitmeer.ts.git qitmeerTs
+cd qitmeerTs && npm i
 ```
 
 ## test
@@ -14,4 +14,3 @@ cd qitmeerJs && npm i
 ```bash
 npm run test
 ```
-
