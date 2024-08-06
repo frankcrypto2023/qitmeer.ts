@@ -27,8 +27,10 @@ function writeUInt64LE(
   offset: number
 ): number {
   verifyUInt(value, 0x001fffffffffffff);
-
-  uint8arraytools.writeUInt32(buffer, offset, value & -1, "LE");
+  const buf = Buffer.from(buffer);
+  const o = buf.writeInt32LE(value & -1, offset);
+  // uint8arraytools.writeUInt32(buffer, offset, value & -1, "LE");
+  buffer.set(buf.subarray(offset, offset + o), offset);
   uint8arraytools.writeUInt32(
     buffer,
     offset + 4,

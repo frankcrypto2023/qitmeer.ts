@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-const varuint = require("varuint-bitcoin");
+import * as varuint from "varuint-bitcoin";
 import Transaction from "./transaction";
 import * as hash from "./hash";
 const fastMerkleRoot = require("merkle-lib/fastRoot");
@@ -77,7 +77,7 @@ export default class Block {
     }
 
     function readVarInt(): number {
-      const vi = varuint.decode(buffer, offset);
+      const vi = varuint.decode(Buffer.from(buffer), offset);
       offset += varuint.decode.bytes;
       return vi;
     }
@@ -171,7 +171,9 @@ export default class Block {
     }
 
     function writeVarInt(i: number): number {
-      varuint.encode(i, buffer, offset);
+      const buf = Buffer.from(buffer);
+      varuint.encode(i, buf, offset);
+      buffer.set(buf.subarray(offset, offset + varuint.encode.bytes), offset);
       offset += varuint.encode.bytes;
       return offset;
     }

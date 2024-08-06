@@ -3,7 +3,7 @@
 // license that can be found in the LICENSE file.
 
 const OPS = require("./ops/ops.json");
-const OPS_MAP = require("./ops/map");
+import { map as OPS_MAP } from "./ops/map";
 import * as utils from "./ops/utils";
 import * as uint8arraytools from "uint8array-tools";
 
@@ -103,7 +103,7 @@ class Script {
           chunk = op;
         }
         // opcode!
-        return OPS_MAP[chunk as string];
+        return OPS_MAP[chunk as number];
       })
       .join(" ");
   }
