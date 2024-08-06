@@ -6,6 +6,8 @@ name: publish code on npm
 on:
   pull_request:
     branches: [main]
+    types:
+      - closed
 
 jobs:
   publish:
