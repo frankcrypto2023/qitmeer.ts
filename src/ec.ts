@@ -7,16 +7,16 @@ const randomBytes = require("randombytes");
 import * as wif from "./wif";
 import { NetworkConfig, networks } from "./networks";
 
-interface ECOptions {
+type ECOptions = {
   compressed?: boolean;
   network?: NetworkConfig;
   rng?: any;
-}
+};
 
-interface WIFDecoded {
+type WIFDecoded = {
   privateKey: Uint8Array;
   compressed: boolean;
-}
+};
 
 class EC {
   public __priv: Uint8Array | null;

@@ -7,13 +7,13 @@ import { map as OPS_MAP } from "./ops/map";
 import * as utils from "./ops/utils";
 import * as uint8arraytools from "uint8array-tools";
 
-export interface SCRIPT_TYPE {
+export type SCRIPT_TYPE = {
   NONSTANDARD: string;
   NULLDATA: string;
   P2PK: string;
   P2PKH: string;
   P2SH: string;
-}
+};
 
 class Script {
   version: number;

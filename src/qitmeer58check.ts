@@ -10,11 +10,11 @@ import * as uint8arraytools from "uint8array-tools";
 
 type ChecksumFn = (payload: Uint8Array) => Uint8Array;
 
-interface Qitmeer58Check {
+type Qitmeer58Check = {
   encode: (payload: Uint8Array) => string;
   decode: (string: string) => Uint8Array;
   decodeUnsafe: (string: string) => Uint8Array | undefined;
-}
+};
 
 function Qitmeer58checkBase(checksumFn: ChecksumFn): Qitmeer58Check {
   // Encode a buffer as a base58-check encoded string

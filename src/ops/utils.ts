@@ -36,11 +36,11 @@ function encode(buffer: Uint8Array, number: number, offset: number): number {
   return size;
 }
 
-interface DecodeResult {
+type DecodeResult = {
   opcode: number;
   number: number;
   size: number;
-}
+};
 
 function decode(buffer: Uint8Array, offset: number): DecodeResult | null {
   const opcode = uint8arraytools.readUInt8(buffer, offset);

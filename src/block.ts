@@ -10,16 +10,16 @@ import * as uint8arraytools from "uint8array-tools";
 
 const BlockHeaderSize = 4 + 32 + 32 + 32 + 4 + 4 + (4 + 1 + 1 + 168);
 
-interface PowData {
+type PowData = {
   edge_bits: number;
   circle_nonces: Uint8Array;
-}
+};
 
-interface BlockPow {
+type BlockPow = {
   nonce: number;
   pow_type: number;
   proof_data: PowData;
-}
+};
 
 export default class Block {
   version: number;

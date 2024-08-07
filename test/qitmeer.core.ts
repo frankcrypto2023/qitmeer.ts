@@ -826,7 +826,7 @@ describe("qitmeer-core", () => {
         "L2QvAGZrNTdJSjzMSEA15vXkbjzdhn7fBJrcWHv3sprLFhkHXksC"
       );
       // create a new tx-signer
-      const txsnr = qitmeer.txsign.newSigner(qitmeer.networks.privnet);
+      const txsnr = qitmeer.TxSigner.newSigner(qitmeer.networks.privnet);
       txsnr.setVersion(1);
       // alex's previous transaction output, has 450 qitmeer
       txsnr.addInput(
@@ -853,7 +853,7 @@ describe("qitmeer-core", () => {
         "L2QvAGZrNTdJSjzMSEA15vXkbjzdhn7fBJrcWHv3sprLFhkHXksC"
       );
       // create a new tx-signer
-      const txsnr = qitmeer.txsign.newSigner(qitmeer.networks.privnet);
+      const txsnr = qitmeer.TxSigner.newSigner(qitmeer.networks.privnet);
       txsnr.setVersion(1);
       txsnr.addInput(
         "d46a58fced5a05b1dc1f4450e1bdf09696291348a7eccec069ed59343ec35b4d",
