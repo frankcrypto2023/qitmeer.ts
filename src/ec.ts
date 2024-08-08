@@ -36,7 +36,7 @@ class EC {
     this.__pub = null;
     if (pub)
       this.__pub = Uint8Array.from(
-        secp256k1.pointCompress(pub, this.compressed)
+        secp256k1.pointCompress(Buffer.from(pub), this.compressed)
       );
   }
 
@@ -47,7 +47,10 @@ class EC {
   get publicKey(): Uint8Array {
     if (!this.__pub)
       this.__pub = Uint8Array.from(
-        secp256k1.pointFromScalar(this.__priv!, this.compressed) as Uint8Array
+        secp256k1.pointFromScalar(
+          Buffer.from(this.__priv as Uint8Array),
+          this.compressed
+        ) as Uint8Array
       );
     return this.__pub as Uint8Array;
   }
@@ -59,11 +62,17 @@ class EC {
 
   sign(hash: Uint8Array): Uint8Array {
     if (!this.__priv) throw new Error("Missing private key");
-    return Uint8Array.from(secp256k1.sign(hash, this.__priv));
+    return Uint8Array.from(
+      secp256k1.sign(Buffer.from(hash), Buffer.from(this.__priv))
+    );
   }
 
   verify(hash: Uint8Array, signature: Uint8Array): boolean {
-    return secp256k1.verify(hash, this.publicKey, signature);
+    return secp256k1.verify(
+      Buffer.from(hash),
+      Buffer.from(this.publicKey),
+      Buffer.from(signature)
+    );
   }
 }
 
@@ -72,13 +81,13 @@ function fromEntropy(options: ECOptions = {}): EC {
   let x: Uint8Array;
   do {
     x = rng(32);
-  } while (!secp256k1.isPrivate(x));
+  } while (!secp256k1.isPrivate(Buffer.from(x)));
 
   return fromPrivateKey(x, options);
 }
 
 function fromPrivateKey(buffer: Uint8Array, options: ECOptions = {}): EC {
-  if (!secp256k1.isPrivate(buffer))
+  if (!secp256k1.isPrivate(Buffer.from(buffer)))
     throw new TypeError("Private key not in range [1, n)");
   return new EC(buffer, null, options);
 }
