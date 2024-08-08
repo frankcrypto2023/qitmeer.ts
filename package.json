@@ -2,10 +2,11 @@
   "name": "qitmeerts",
   "version": "1.1.1",
   "description": "Qirmeer client-side TypeScript library",
-  "main": "./src/index.ts",
+  "main": "./dist/src/index.js",
   "scripts": {
     "test": " npm run unit",
-    "unit": "mocha --require ts-node/register ./test/qitmeer.core.ts"
+    "unit": "mocha --require ts-node/register ./test/qitmeer.core.ts",
+    "build": "tsc"
   },
   "repository": {
     "type": "git",
