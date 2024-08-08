@@ -22,8 +22,11 @@ var __importStar = (this && this.__importStar) || function (mod) {
     __setModuleDefault(result, mod);
     return result;
 };
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
-const OPS = require("./ops/ops.json");
+const ops_1 = __importDefault(require("./ops/ops"));
 const map_1 = require("./ops/map");
 const utils = __importStar(require("./ops/utils"));
 const uint8arraytools = __importStar(require("uint8array-tools"));
@@ -38,7 +41,8 @@ class Script {
             let i = 0;
             while (i < buffer.length) {
                 const opcode = buffer[i];
-                if (opcode > OPS.OP_0 && opcode <= OPS.OP_PUSHDATA4) {
+                if (opcode > ops_1.default.OP_0 &&
+                    opcode <= ops_1.default.OP_PUSHDATA4) {
                     const d = utils.decode(buffer, i);
                     if (d === null)
                         return null;
@@ -66,8 +70,8 @@ class Script {
     static fromAsm(asm) {
         const script = new Script();
         script.stack = asm.split(" ").map((chunkStr) => {
-            if (OPS[chunkStr] !== undefined)
-                return OPS[chunkStr];
+            if (ops_1.default[chunkStr] !== undefined)
+                return ops_1.default[chunkStr];
             return uint8arraytools.fromHex(chunkStr);
         });
         return script;
@@ -134,11 +138,11 @@ class Script {
                 return;
             if (typeof lockIndex === "number" && lockIndex === index) {
                 if (chunk === 0) {
-                    uint8arraytools.writeUInt8(buffer, offset, OPS.OP_0);
+                    uint8arraytools.writeUInt8(buffer, offset, ops_1.default.OP_0);
                     offset += 1;
                 }
                 else if (chunk >= 1 && chunk <= 16) {
-                    uint8arraytools.writeUInt8(buffer, offset, OPS.OP_1 - 1 + chunk);
+                    uint8arraytools.writeUInt8(buffer, offset, ops_1.default.OP_1 - 1 + chunk);
                     offset += 1;
                 }
                 else {
@@ -191,7 +195,7 @@ class Script {
         return this;
     }
     removeCodeSeparator() {
-        this.removeOP(OPS.OP_CODESEPARATOR);
+        this.removeOP(ops_1.default.OP_CODESEPARATOR);
         return this;
     }
 }
@@ -214,11 +218,11 @@ Script.Input = {
 function __publicKeyScript(hash) {
     const script = new Script();
     script.stack = [
-        OPS.OP_DUP,
-        OPS.OP_HASH160,
+        ops_1.default.OP_DUP,
+        ops_1.default.OP_HASH160,
         hash,
-        OPS.OP_EQUALVERIFY,
-        OPS.OP_CHECKSIG,
+        ops_1.default.OP_EQUALVERIFY,
+        ops_1.default.OP_CHECKSIG,
     ];
     return script;
 }
@@ -227,19 +231,19 @@ function __cltvScript(hash, lockTime) {
     script.stack = [
         "cltv",
         lockTime,
-        OPS.OP_CHECKLOCKTIMEVERIFY,
-        OPS.OP_DROP,
-        OPS.OP_DUP,
-        OPS.OP_HASH160,
+        ops_1.default.OP_CHECKLOCKTIMEVERIFY,
+        ops_1.default.OP_DROP,
+        ops_1.default.OP_DUP,
+        ops_1.default.OP_HASH160,
         hash,
-        OPS.OP_EQUALVERIFY,
-        OPS.OP_CHECKSIG,
+        ops_1.default.OP_EQUALVERIFY,
+        ops_1.default.OP_CHECKSIG,
     ];
     return script;
 }
 function __scriptHash(hash) {
     const script = new Script();
-    script.stack = [OPS.OP_HASH160, hash, OPS.OP_EQUAL];
+    script.stack = [ops_1.default.OP_HASH160, hash, ops_1.default.OP_EQUAL];
     return script;
 }
 function __signatureScript(signature, pubkey) {

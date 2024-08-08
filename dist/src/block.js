@@ -26,7 +26,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-const varuint = __importStar(require("varuint-bitcoin"));
+const varuint = require("varuint-bitcoin");
 const transaction_1 = __importDefault(require("./transaction"));
 const hash = __importStar(require("./hash"));
 const fastMerkleRoot = require("merkle-lib/fastRoot");

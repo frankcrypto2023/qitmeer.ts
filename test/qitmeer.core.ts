@@ -767,7 +767,7 @@ describe("qitmeer-core", () => {
     describe("ops", function () {
       it("test OP_CHECKSIG", function () {
         assert.strictEqual(
-          qitmeer.OPS_MAP[qitmeer.OPS.OP_CHECKSIG],
+          qitmeer.OPS_MAP[qitmeer.OPS.OP_CHECKSIG as number],
           "OP_CHECKSIG"
         );
         assert.strictEqual(qitmeer.OPS.OP_CHECKSIG, 172);

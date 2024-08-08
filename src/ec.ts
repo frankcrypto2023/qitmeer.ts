@@ -2,7 +2,7 @@
 // Use of this source code is governed by an ISC
 // license that can be found in the LICENSE file.
 
-import * as secp256k1 from "tiny-secp256k1";
+const secp256k1 = require("tiny-secp256k1");
 const randomBytes = require("randombytes");
 import * as wif from "./wif";
 import { NetworkConfig, networks } from "./networks";

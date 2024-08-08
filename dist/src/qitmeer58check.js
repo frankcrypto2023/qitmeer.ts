@@ -43,7 +43,7 @@ function Qitmeer58checkBase(checksumFn) {
             (checksum[1] ^ newChecksum[1]) |
             (checksum[2] ^ newChecksum[2]) |
             (checksum[3] ^ newChecksum[3]))
-            return;
+            return undefined;
         return payload;
     }
     function decodeUnsafe(string) {

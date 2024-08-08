@@ -11,5 +11,5 @@ import block from "./block";
 import { map as OPS_MAP } from "./ops/map";
 import script from "./script";
 import * as signature from "./signature";
-declare const _OPS: any;
-export { types, typecheck, hash, ec, qitmeer58check, address, networks, Transaction, TxSigner, block, _OPS as OPS, OPS_MAP, script, signature, };
+import OPS from "./ops/ops";
+export { types, typecheck, hash, ec, qitmeer58check, address, networks, Transaction, TxSigner, block, OPS, OPS_MAP, script, signature, };

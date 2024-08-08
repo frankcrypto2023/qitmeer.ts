@@ -38,7 +38,7 @@ function Qitmeer58checkBase(checksumFn: ChecksumFn): Qitmeer58Check {
       ((checksum[2] as number) ^ (newChecksum[2] as number)) |
       ((checksum[3] as number) ^ (newChecksum[3] as number))
     )
-      return;
+      return undefined;
 
     return payload;
   }
