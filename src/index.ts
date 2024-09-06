@@ -16,7 +16,7 @@ import { map as OPS_MAP } from "./ops/map";
 import script from "./script";
 import * as signature from "./signature";
 import OPS from "./ops/ops";
-
+import { QngAccountAPI, PaymasterAPI, HttpRpcClient } from "./aa/qngAccountAPI";
 export {
   types,
   typecheck,
@@ -32,4 +32,7 @@ export {
   OPS_MAP,
   script,
   signature,
+  QngAccountAPI,
+  PaymasterAPI,
+  HttpRpcClient,
 };
