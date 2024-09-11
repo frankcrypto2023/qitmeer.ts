@@ -1,16 +1,16 @@
 "use strict";
 Object.defineProperty(exports, "__esModule", { value: true });
-import * as contracts_1 from "@account-abstraction/contracts";
+import * as contracts_1 from "@qng/eip4337-contracts";
 import { ethers } from "ethers";
 import {
   BaseAccountAPI,
   PaymasterAPI,
   HttpRpcClient,
   // calcPreVerificationGas,
-} from "@account-abstraction/sdk";
-export { PaymasterAPI, HttpRpcClient };
+} from "./baseAccountAPI";
+export { PaymasterAPI, HttpRpcClient, BaseAccountAPI };
 /**
- * An implementation of the BaseAccountAPI using the SimpleAccount contract.
+ * An implementation of the BaseAccountAPI using the QngAccount contract.
  * - contract deployer gets "entrypoint", "owner" addresses and "index" nonce
  * - owner signs requests using normal "Ethereum Signed Message" (ether's signer.signMessage())
  * - nonce method is "nonce()"
@@ -33,7 +33,7 @@ export class QngAccountAPI extends BaseAccountAPI {
   }
   async _getAccountContract() {
     if (this.accountContract == null) {
-      this.accountContract = contracts_1.SimpleAccount__factory.connect(
+      this.accountContract = contracts_1.QngAccount__factory.connect(
         await this.getAccountAddress(),
         this.provider
       );
@@ -47,7 +47,7 @@ export class QngAccountAPI extends BaseAccountAPI {
   async getAccountInitCode() {
     if (this.factory == null) {
       if (this.factoryAddress != null && this.factoryAddress !== "") {
-        this.factory = contracts_1.SimpleAccountFactory__factory.connect(
+        this.factory = contracts_1.QngAccountFactory__factory.connect(
           this.factoryAddress,
           this.provider
         );

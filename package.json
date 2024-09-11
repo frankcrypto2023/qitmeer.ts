@@ -41,9 +41,7 @@
     "assert": "^2.1.0",
     "mocha": "^10.7.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.5.4",
-    "@account-abstraction/contracts": "^0.6.0",
-    "@account-abstraction/sdk": "^0.6.0"
+    "typescript": "^5.5.4"
   },
   "dependencies": {
     "@noble/hashes": "^1.4.0",
