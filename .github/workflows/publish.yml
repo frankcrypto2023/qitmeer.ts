@@ -4,29 +4,41 @@
 name: publish code on npm
 
 on:
-  pull_request:
-    branches: [main]
+  push:
+    branches:
+      - main
+  repository_dispatch:
     types:
-      - closed
+      - webhook
 
 jobs:
   publish:
-    if: ${{ github.event.pull_request.merged }}
     runs-on: ubuntu-latest
     permissions:
       id-token: write
       contents: read
     strategy:
       matrix:
-        node-version: ["18.x", "20.x"]
+        node-version: ["20.x"]
 
     steps:
       - uses: actions/checkout@v4
+      - name: Check if version has changed
+        id: check_version
+        run: |
+          if git diff HEAD^ HEAD package.json | grep '"version"'; then
+            echo "::set-output name=version_changed::true";
+          else
+            echo "::set-output name=version_changed::false";
+          fi
       - name: Use Node.js ${{ matrix.node-version }}
+        if: steps.check_version.outputs.version_changed == 'true'
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
           registry-url: "https://registry.npmjs.org"
+      - run: npm install
+      - run: npm run build
       - run: npm publish --provenance --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
