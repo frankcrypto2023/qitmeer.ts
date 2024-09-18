@@ -9,6 +9,7 @@ import {
   PaymasterAPI,
   calcPreVerificationGas,
   GasOverheads,
+  HttpRpcClient,
 } from "@account-abstraction/sdk";
 import { TransactionDetailsForUserOp } from "./TransactionDetailsForUserOp";
 import { resolveProperties } from "ethers/lib/utils";
@@ -25,7 +26,7 @@ export interface BaseApiParams {
   overheads?: Partial<GasOverheads>;
   paymasterAPI?: PaymasterAPI;
 }
-
+export { PaymasterAPI, HttpRpcClient };
 export interface UserOpResult {
   transactionHash: string;
   success: boolean;

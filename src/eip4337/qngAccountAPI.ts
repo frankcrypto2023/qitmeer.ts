@@ -9,11 +9,11 @@ import {
 import { arrayify, hexConcat } from "ethers/lib/utils";
 import { Signer } from "@ethersproject/abstract-signer";
 import {
+  BaseApiParams,
   BaseAccountAPI,
   PaymasterAPI,
   HttpRpcClient,
-} from "@account-abstraction/sdk";
-import { BaseApiParams } from "BaseAccountAPI";
+} from "./BaseAccountAPI";
 export { PaymasterAPI, HttpRpcClient, BaseAccountAPI };
 /**
  * constructor params, added no top of base params:
