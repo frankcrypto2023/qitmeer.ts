@@ -13,7 +13,7 @@ import {
   BaseAccountAPI,
   PaymasterAPI,
   HttpRpcClient,
-} from "./BaseAccountAPI";
+} from "./baseAccountAPI";
 export { PaymasterAPI, HttpRpcClient, BaseAccountAPI };
 /**
  * constructor params, added no top of base params:

@@ -11,7 +11,7 @@ import {
   GasOverheads,
   HttpRpcClient,
 } from "@account-abstraction/sdk";
-import { TransactionDetailsForUserOp } from "./TransactionDetailsForUserOp";
+import { TransactionDetailsForUserOp } from "./transactionDetailsForUserOp";
 import { resolveProperties } from "ethers/lib/utils";
 import {
   getUserOpHash,
