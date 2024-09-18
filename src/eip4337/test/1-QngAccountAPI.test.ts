@@ -10,7 +10,7 @@ import { expect } from "chai";
 import { anyValue } from "@nomicfoundation/hardhat-chai-matchers/withArgs";
 import { ethers } from "hardhat";
 import { DeterministicDeployer } from "@account-abstraction/sdk";
-import { QngAccountAPI } from "../dist";
+import { QngAccountAPI } from "../";
 import {
   SampleRecipient,
   SampleRecipient__factory,
