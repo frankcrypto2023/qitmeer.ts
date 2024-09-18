@@ -3,7 +3,7 @@ import {
   EntryPoint__factory,
   SimpleAccountFactory__factory,
   UserOperationStruct,
-} from "@account-abstraction/contracts";
+} from "@qng/eip4337-contracts";
 import { Wallet } from "ethers";
 import { parseEther } from "ethers/lib/utils";
 import { expect } from "chai";

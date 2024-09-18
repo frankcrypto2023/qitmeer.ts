@@ -8,10 +8,7 @@ import {
   ERC4337EthersProvider,
   wrapProvider,
 } from "@account-abstraction/sdk";
-import {
-  EntryPoint,
-  EntryPoint__factory,
-} from "@account-abstraction/contracts";
+import { EntryPoint, EntryPoint__factory } from "@qng/eip4337-contracts";
 import { expect } from "chai";
 import { parseEther } from "ethers/lib/utils";
 import { Wallet } from "ethers";
