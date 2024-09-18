@@ -1,7 +1,7 @@
 import {
   EntryPoint,
   EntryPoint__factory,
-  SimpleAccountFactory__factory,
+  QngAccountFactory__factory,
   UserOperationStruct,
 } from "@qng/eip4337-contracts";
 import { Wallet } from "ethers";
@@ -37,7 +37,7 @@ describe("QngAccountAPI", () => {
     owner = Wallet.createRandom();
     DeterministicDeployer.init(ethers.provider);
     const factoryAddress = await DeterministicDeployer.deploy(
-      new SimpleAccountFactory__factory(),
+      new QngAccountFactory__factory(),
       0,
       [entryPoint.address]
     );
